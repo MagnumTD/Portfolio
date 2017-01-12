@@ -1,0 +1,24 @@
+fileFormatVersion: 2
+guid: e963e45a474b65349bdabf63ddb0fc96
+timeCreated: 1471268129
+licenseType: Free
+MonoImporter:
+  serializedVersion: 2
+  defaultReferences:
+  - EntranceRoom: {fileID: 1000011236559580, guid: c9c06ee094f6eb1478b2f358a969f6f6,
+      type: 2}
+  - GoalRoom: {fileID: 1000011236559580, guid: 75915637e700e2e4fb5ce6f255e61493, type: 2}
+  - EmptyRoom: {fileID: 1000011236559580, guid: f11a50b8fc61d7b40b2837ce9ad47c05,
+      type: 2}
+  - LeftCurve: {fileID: 1000011236559580, guid: a713389437ac5914d908150bcf54ff5a,
+      type: 2}
+  - RightCurve: {fileID: 1000011236559580, guid: c10a123c9b1bb554a9e4e53d0774d1d1,
+      type: 2}
+  - LockedRoom: {fileID: 1000011236559580, guid: b9579641a66c6b247b8504ab254b81b9,
+      type: 2}
+  - KeyRoom: {fileID: 1000011236559580, guid: abd96e507326fa04ea3efac9c107b632, type: 2}
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

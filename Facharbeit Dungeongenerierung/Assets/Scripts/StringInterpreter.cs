@@ -54,14 +54,13 @@ public class StringInterpreter
 
     #endregion
 
-    public static string IterateComplete(string currentWord)
+    public string IterateComplete(string currentWord)
     {
-        // Static function, so no instance of the class is needed in the contextclass. Calls iterate until there are no generics left and every char is terminal
-        var stringInterpreter = new StringInterpreter();
-        string newWord = stringInterpreter.Iterate(currentWord);
+        // Calls iterate until there are no generics left and every char is terminal
+        string newWord = Iterate(currentWord);
         while (newWord.Contains(Start.ToString()) || newWord.Contains(GenericHallway.ToString()) || newWord.Contains(GenericRoom.ToString()))
         {
-            newWord = (stringInterpreter.Iterate(newWord));
+            newWord = (Iterate(newWord));
         }
 
         return newWord;

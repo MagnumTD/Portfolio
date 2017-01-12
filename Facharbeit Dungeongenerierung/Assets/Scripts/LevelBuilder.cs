@@ -20,15 +20,17 @@ public class LevelBuilder : MonoBehaviour
     public GameObject Player; 
     /*_________________________*/
 
+    public int MinimumAmountOfRooms = 10;
     private string Axiom = "S";
     private string DungeonString = "";
     public GenerationType genType;
     private int RoomSize = 10;
-    public int MinimumAmountOfRooms = 10;
     GameObject[] Rooms;
-
+    private StringInterpreter stringInterpreter;
+    
     void Start()
     {
+        stringInterpreter = new StringInterpreter();
         CreateLevel(DungeonString);
     }
 
@@ -51,7 +53,7 @@ public class LevelBuilder : MonoBehaviour
                     DestroyCurrentLevel();
                     do
                     {
-                        generationString = StringInterpreter.IterateComplete(Axiom);
+                        generationString = stringInterpreter.IterateComplete(Axiom);
                     }
                     while (generationString.Length < MinimumAmountOfRooms);
                 }
@@ -63,7 +65,7 @@ public class LevelBuilder : MonoBehaviour
         Instantiate(Player, transform.GetChild(0).position + Vector3.up, Quaternion.identity);
 
         // Just some information telling how long it took to build the level and how long it is
-        Debug.Log("Generation strings length: " + generationString.Length);
+        Debug.Log("Length of the generationString: " + generationString.Length);
         Debug.Log("BuildingTime: " + (DateTime.Now -dt).TotalSeconds);
 
 
@@ -97,14 +99,15 @@ public class LevelBuilder : MonoBehaviour
         {
             Quaternion q = Quaternion.FromToRotation(Vector3.right, direction);
 
-            if ((Mathf.Abs(Rooms[blockingRoomID].transform.localRotation.eulerAngles.y) <= (q.eulerAngles.y + 1) % 360 &&
-                Mathf.Abs(Rooms[blockingRoomID].transform.localRotation.eulerAngles.y) >= (q.eulerAngles.y - 1) % 360) ||
-               (Mathf.Abs(Rooms[blockingRoomID].transform.localRotation.eulerAngles.y) <= (q.eulerAngles.y + 181) % 360 &&
-                Mathf.Abs(Rooms[blockingRoomID].transform.localRotation.eulerAngles.y) >= (q.eulerAngles.y + 179) % 360))
+            // check wether the blocking rooms orientation is the same as the current direction. 
+            // dependant on that, delete the rooms walls
+            if (Mathf.Abs(Rooms[blockingRoomID].transform.localRotation.eulerAngles.y) == (q.eulerAngles.y)||
+                Mathf.Abs(Rooms[blockingRoomID].transform.localRotation.eulerAngles.y) == (q.eulerAngles.y + 180) % 360)
             {
                 if (Rooms[blockingRoomID].transform.childCount > 2) Rooms[blockingRoomID].transform.GetChild(2).gameObject.SetActive(false);
             }
-            else
+            else if (Mathf.Abs(Rooms[blockingRoomID].transform.localRotation.eulerAngles.y) == (q.eulerAngles.y + 90) % 360 ||
+                     Mathf.Abs(Rooms[blockingRoomID].transform.localRotation.eulerAngles.y) == (q.eulerAngles.y + 270) % 360)
             {
                 Rooms[blockingRoomID].transform.GetChild(0).gameObject.SetActive(false);
                 Rooms[blockingRoomID].transform.GetChild(1).gameObject.SetActive(false);
@@ -293,7 +296,8 @@ public class LevelBuilder : MonoBehaviour
 
     private void AssignKeysToLocks(Stack<GameObject> LockStack)
     {
-        // each key is assigned a lock from the lockstack, if that lock is still locked. If the locked door is not active (crossway) then they both become normal empty rooms
+        // Each key is assigned a lock from the lockstack, if that lock is still locked. 
+        // If the locked door is not active (crossway) then they both become normal empty rooms
         for (int i = Rooms.Length - 1; i > 0; i--)
         {
             if (Rooms[i] == null) continue;

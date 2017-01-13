@@ -20,3 +20,8 @@ The levels are build from different rooms that are colorcoded:
 	The final room is the red goal room. Entering this room will generate a new level.
 
 The projects gameplay elements are provided by Unity3Ds default Character Controller.
+
+
+I also worked on two group projects. The first one was a 2D-Jump and Run game where you play a diver underwater. For that project I worked with two other programmers. My main responsibilites were to create a custom character controller, simple enemy behaviour and level obstacles like currents or jellyfishes. 
+The second project was a slot machine similar to the ones found in the town in Borderlands 2. The user can win different on air genereated rifles, that were combined by several parts like a grip, a scope, a barrel and so on. 
+Since these projects were group projects I sadly can not upload them to github. 
